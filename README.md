@@ -28,6 +28,7 @@ that pertains to a certain view within your app. If this is the case, providing 
 ```dart
 FirebasePresence(
   setLifeCycleState: true,
+  setOnlinePresence: true,
   autoDispose: true,
   databaseReference: database.ref('presence'),
   onDetachedCallback: () => print('Detached.'),
@@ -70,6 +71,7 @@ Lifecycle data is determined by `WidgetsBindingObserver` while user presence rel
 
 ### Parameters
 - `setLifeCycleState` - Whether or not to set the lifecycle state in the realtime database.
+- `setOnlinePresence` - Whether or not to set the presence state in the realtime database.
 - `autoDispose` - Whether or not to dispose the lifecycle state listener.
 - `databaseReference` - A `DatabaseReference` object representing the path to store presence data.
 - `onDetachedCallback` - Called when the widget lifecycle event is detached.

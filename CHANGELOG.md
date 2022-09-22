@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Added `setOnlinePresence` flag to determine whether or not to set presence state in RTDB.
+
 ## 0.0.3
 
 * Add cloud function example for reflecting data across to Cloud Firestore.

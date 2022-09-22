@@ -26,6 +26,7 @@ class FirebasePresence extends StatefulWidget {
     required this.databaseReference,
     required this.child,
     this.setLifeCycleState = true,
+    this.setOnlinePresence = true,
     this.autoDispose = true,
     this.onInactiveCallback,
     this.onPausedCallback,
@@ -43,6 +44,9 @@ class FirebasePresence extends StatefulWidget {
 
   /// Whether or not to set the lifecycle state in the realtime database.
   final bool setLifeCycleState;
+
+  /// Whether or not to set the presence state in the realtime database.
+  final bool setOnlinePresence;
 
   /// Whether or not to dispose the lifecycle state listener.
   final bool autoDispose;
@@ -184,6 +188,7 @@ class FirebasePresenceState extends State<FirebasePresence>
   /// Initialises listeners while also setting an initial state for
   /// both online/offline status and the app lifecycle.
   Future<void> _initialize() async {
+    if (!widget.setOnlinePresence) return;
     final auth = FirebaseAuth.instance;
     try {
       // Set presence on app startup since Firebase Auth persists authentication.
