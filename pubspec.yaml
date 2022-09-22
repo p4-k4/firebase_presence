@@ -1,0 +1,22 @@
+name: firebase_presence
+description: Collects and reports client presence data to Firebase RTDB with the ability to fetch online/offline status and app lifecycle data for Firebase users.
+version: 0.0.1
+homepage: "https://github.com/flutterfocus/firebase_presence"
+
+environment:
+  sdk: '>=2.18.1 <3.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  firebase_core: ^1.21.0
+  firebase_auth: ^3.6.4
+  firebase_database: ^9.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
