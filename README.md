@@ -11,7 +11,6 @@ while also checking how or if a user is focused on the app itself.
 - Specify a Firebase user for presence/lifeycle data.
 - Lifecycle state callbacks.
 - Optional Error handling.
-- Optional Null handling.
 - Optional auto-dispose.
 
 ## How?
@@ -45,15 +44,16 @@ FirebasePresence(
       body: FirebasePresenceBuilder(
         userId: auth.currentUser!.uid,
         databaseReference: database.ref('presence'),
-        onNull: const Text('Null'),
         onError: (e, s) => Text(e.toString()),
-        builder: (data) => Column(
-          children: [
-            Text(data.isOnline.toString()),
-            Text(data.lastSeen.toString()),
-            Text(data.appLifeCycle.toString()),
-          ],
-        ),
+        builder: (data) => data != null
+            ? Column(
+                children: [
+                  Text(data.isOnline.toString()),
+                  Text(data.lastSeen.toString()),
+                  Text(data.appLifeCycle.toString()),
+                ],
+              )
+            : const Text('No data.'),
       ),
     ),
   ),
@@ -89,7 +89,6 @@ This can be useful in the case of user presence (online/offline status) while al
 ### Parameters
 - `userId` - The user ID of the user to check presence for.
 - `databaseReference` - A `DatabaseReference` object representing the path to store presence data.
-- `onNull` - The widget to be displayed when the data received from the RTDB is null.
 - `onError` - The widget to be displayed when receiving data from the RTDB.
 - `builder` - The widget to show when data is received from the RTDB.
 

@@ -283,7 +283,6 @@ class FirebasePresenceBuilder extends StatefulWidget {
     required this.databaseReference,
     required this.builder,
     this.onError,
-    this.onNull,
     required this.userId,
   });
 
@@ -291,13 +290,10 @@ class FirebasePresenceBuilder extends StatefulWidget {
   final DatabaseReference databaseReference;
 
   /// The widget to show when data is received from the RTDB.
-  final Widget Function(FirebasePresenceData data) builder;
+  final Widget Function(FirebasePresenceData? data) builder;
 
   /// The widget to be displayed when receiving data from the RTDB.
   final Widget Function(Object? error, StackTrace? stackTrace)? onError;
-
-  /// The widget to be displayed when the data received from the RTDB is null.
-  final Widget? onNull;
 
   /// The user ID of the user to check presence for.
   final String userId;
@@ -358,14 +354,8 @@ class FirebasePresenceBuilderState extends State<FirebasePresenceBuilder> {
     } else if (_state == FirebasePresenceWidgetState.error &&
         widget.onError != null) {
       return widget.onError!.call(_error, _stackTrace);
-    } else if (_state == FirebasePresenceWidgetState.Null &&
-        widget.onNull != null) {
-      return widget.onNull!;
-    } else if (_state == FirebasePresenceWidgetState.Null &&
-        _firebasePresenceData != null) {
-      return widget.onNull!;
     } else {
-      return const SizedBox.shrink();
+      return widget.builder.call(null);
     }
   }
 }
