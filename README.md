@@ -104,6 +104,33 @@ Represents the various lifecycle states of a `FirebasePresence` widget.
 - `error` - Indicates an error occured when sending or receiving data to/from the RTDB.
 - `Null` - Indicates that the data received from the RTDB was null.
 
+## Cloud Firestore / Cloud function to reflect presence data
+
+Additionally, we can utilise a cloud function to have presence data across to Cloud Firestore.
+
+**Example**
+```javascript
+// Presence
+exports.onUserStatusChange = functions.database
+
+  // The database reference should match that of what was specified
+  // on the `FirebasePresence` widget.
+  .ref("/presence/{uid}")
+  .onUpdate(async (change, context) => {
+    // Get the data written to Realtime Database
+    const data = change.after.val();
+
+    // Get a reference to the Firestore document
+    const userAccountStatusRef = firestore.doc(`users/${context.params.uid}`);
+
+    // Update the values on Firestore
+    console.log();
+    return userAccountStatusRef.set({
+      account: {presence: data},
+    });
+  });
+```
+
 ## Reaching out
 
 Contributions, issues and feature requests are welcome.

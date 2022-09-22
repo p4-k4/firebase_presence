@@ -353,7 +353,7 @@ class FirebasePresenceBuilderState extends State<FirebasePresenceBuilder> {
       return widget.builder(_firebasePresenceData!);
     } else if (_state == FirebasePresenceWidgetState.error &&
         widget.onError != null) {
-      return widget.onError!.call(_error, _stackTrace);
+     return widget.onError!.call(_error, _stackTrace);
     } else {
       return widget.builder.call(null);
     }
